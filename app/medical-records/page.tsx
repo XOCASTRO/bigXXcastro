@@ -134,7 +134,7 @@ export default function MedicalRecordsPage() {
                     <h2 className="text-2xl font-bold">{record.student_file.student_name}</h2>
                     <p className="text-muted-foreground">Matric: {record.student_file.matric_number}</p>
                   </div>
-                  <Link href={`/medical-records/manage/${record.student_file.matric_number}`}>
+                  <Link href={`/medical-records/manage/${encodeURIComponent(record.student_file.matric_number)}`}>
                     <Button variant="outline">Edit Record</Button>
                   </Link>
                 </div>
