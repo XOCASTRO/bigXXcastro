@@ -26,7 +26,17 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const result: any = await query(
       `INSERT INTO prescription_history (matric_number, prescription_date, medication, dosage, frequency, duration, doctor_name, notes, status)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [matric_number, prescription_date, medication, dosage, frequency, duration, doctor_name, notes, status || 'active']
+      [
+        matric_number,
+        prescription_date || null,
+        medication || null,
+        dosage || null,
+        frequency || null,
+        duration || null,
+        doctor_name || null,
+        notes || null,
+        status || 'active'
+      ]
     );
 
     const rows: any = await query('SELECT * FROM prescription_history WHERE id = ?', [result.insertId]);

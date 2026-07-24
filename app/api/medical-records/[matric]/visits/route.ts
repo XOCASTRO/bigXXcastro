@@ -26,7 +26,14 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const result: any = await query(
       `INSERT INTO clinic_visits (matric_number, visit_type, visit_date, reason_for_visit, doctor_name, status)
        VALUES (?, ?, ?, ?, ?, ?)`,
-      [matric_number, visit_type, visit_date, reason_for_visit, doctor_name, status || 'completed']
+      [
+        matric_number,
+        visit_type || null,
+        visit_date || null,
+        reason_for_visit || null,
+        doctor_name || null,
+        status || 'completed'
+      ]
     );
 
     const rows: any = await query('SELECT * FROM clinic_visits WHERE id = ?', [result.insertId]);

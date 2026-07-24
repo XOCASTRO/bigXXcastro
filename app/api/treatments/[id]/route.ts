@@ -25,7 +25,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     await query(
       'UPDATE treatment_history SET diagnosis = ?, treatment = ?, visit_date = ?, doctor_name = ?, follow_up_required = ? WHERE id = ?',
-      [diagnosis, treatment, visit_date, doctor_name, follow_up_required ? 1 : 0, id]
+      [diagnosis || null, treatment || null, visit_date || null, doctor_name || null, follow_up_required ? 1 : 0, id]
     );
 
     const rows: any = await query('SELECT * FROM treatment_history WHERE id = ?', [id]);
