@@ -36,7 +36,7 @@ export default function MedicalRecordForm({ onSuccess, canCreateRecords, staffId
     matric_number: '',
     student_name: '',
     date_of_birth: '',
-    level: '100',
+    level: 'ND1',
     phone: '',
     email: '',
     address: '',
@@ -204,7 +204,7 @@ export default function MedicalRecordForm({ onSuccess, canCreateRecords, staffId
         matric_number: '',
         student_name: '',
         date_of_birth: '',
-        level: '100',
+        level: 'ND1',
         phone: '',
         email: '',
         address: '',
@@ -363,11 +363,10 @@ export default function MedicalRecordForm({ onSuccess, canCreateRecords, staffId
           onChange={handleChange}
           className={`w-full px-3 py-2 border rounded-md ${errors.level ? 'border-red-500' : 'border-white/20'}`}
         >
-          <option value="100">100 Level</option>
-          <option value="200">200 Level</option>
-          <option value="300">300 Level</option>
-          <option value="400">400 Level</option>
-          <option value="500">500 Level</option>
+          <option value="ND1">ND1</option>
+          <option value="ND2">ND2</option>
+          <option value="HND1">HND1</option>
+          <option value="HND2">HND2</option>
         </select>
         {errors.level && <p className="text-sm text-red-600 mt-1">{errors.level}</p>}
       </div>
