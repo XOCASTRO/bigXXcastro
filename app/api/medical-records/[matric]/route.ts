@@ -11,9 +11,10 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-export async function GET(request: NextRequest, { params }: { params: { matric: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ matric: string }> }) {
   try {
-    const matric_number = decodeURIComponent(params.matric);
+    const { matric } = await params;
+    const matric_number = decodeURIComponent(matric);
     const connection = await pool.getConnection();
 
     // Get student file
@@ -75,10 +76,11 @@ export async function GET(request: NextRequest, { params }: { params: { matric: 
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { matric: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ matric: string }> }) {
   try {
     const body = await request.json();
-    const matric_number = decodeURIComponent(params.matric);
+    const { matric } = await params;
+    const matric_number = decodeURIComponent(matric);
     const { ...updates } = body;
 
     const connection = await pool.getConnection();

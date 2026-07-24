@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/mysql-db';
 
-export async function GET(request: NextRequest, { params }: { params: { matric: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ matric: string }> }) {
   try {
-    const matric_number = decodeURIComponent(params.matric);
+    const { matric } = await params;
+    const matric_number = decodeURIComponent(matric);
     const rows = await query(
       'SELECT * FROM allergies WHERE matric_number = ? ORDER BY date_recorded DESC',
       [matric_number]
@@ -15,9 +16,10 @@ export async function GET(request: NextRequest, { params }: { params: { matric: 
   }
 }
 
-export async function POST(request: NextRequest, { params }: { params: { matric: string } }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ matric: string }> }) {
   try {
-    const matric_number = decodeURIComponent(params.matric);
+    const { matric } = await params;
+    const matric_number = decodeURIComponent(matric);
     const body = await request.json();
     const { allergen, severity, notes } = body;
 
